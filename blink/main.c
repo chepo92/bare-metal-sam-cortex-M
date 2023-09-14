@@ -121,8 +121,14 @@ void delay (volatile uint32_t time)
     __asm ("nop");
 }
 
+static uint32_t* const WDT_MR = (uint32_t*) 0x400E1A54;
+
 void main()
 {
+  // watchdog timer is actived on boot with a default timeout so disable it
+  // note: you can only write to WDT_MR once after power on reset
+  // Atmel SAM3X8E Datasheet, section 15.4, page 261
+  *WDT_MR |= (1 << 15); // WDDIS (watchdog disable) bit, page 265  
   HardwareInit ();
 
   while (1)
