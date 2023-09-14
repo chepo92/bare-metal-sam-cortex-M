@@ -1,8 +1,8 @@
 
 
 
-TC  =C:/users/bob/AppData/Local/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin
-PROG=C:/users/bob/AppData/Local/Arduino15/packages/arduino/tools/bossac/bossac-1.7.0
+TC  =C:/users/Axel/AppData/Local/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin
+PROG=C:/users/Axel/AppData/Local/Arduino15/packages/arduino/tools/bossac/bossac-1.7.0
 
 CC=$(TC)/arm-none-eabi-gcc
 
