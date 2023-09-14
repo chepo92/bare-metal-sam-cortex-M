@@ -14,7 +14,7 @@
 //#define LED_PIN 27
 
 // Output on B14 (Duet)
-#define LED_PIN 14
+#define LED_PIN 0  // Will blink pin4 PE0 E2_STOP on Duet Board
 
 // PMC definitions
 #define PMC_PCER0 *(volatile uint32_t *)0x400E0410    // PMC Peripheral Clock Enable Register 0; Address SAM3: 0x400E0610 SAM4E: 0x400E0410
@@ -44,9 +44,9 @@
 // 0x0004 bytes = 4*8 = 32 bit
 struct gpio {
   // + 0x00
-  volatile uint32_t PIO_PER;
-  volatile uint32_t PIO_PDR;
-  volatile uint32_t PIO_PSR;
+  volatile uint32_t PIO_PER;      // PIO Enable Register
+  volatile uint32_t PIO_PDR;      // PIO Disable Register
+  volatile uint32_t PIO_PSR;      // PIO Status Register 
   volatile uint32_t res1;
   // + 0x10
   volatile uint32_t PIO_OER;
@@ -116,14 +116,14 @@ void HardwareInit (void)
 {
   // enable peripheral clock
 	//  PMC_WPMR  = PMC_WPKEY << 8 | 0;
-  PMC_PCER0 = 1 << ID_PIOB;
+  PMC_PCER0 = 1 << ID_PIOE;  // PIO Clock on E
 
   // PIOC
 	//  PIOC_WPMR  = PIO_WPKEY << 8 | 0;
 
-  PIOB->PIO_PER = 1 << LED_PIN;
-  PIOB->PIO_OER = 1 << LED_PIN;
-  PIOB->PIO_OWER = 1 << LED_PIN;
+  PIOE->PIO_PER = 1 << LED_PIN;
+  PIOE->PIO_OER = 1 << LED_PIN;
+  PIOE->PIO_OWER = 1 << LED_PIN;
 }
 
 void delay (volatile uint32_t time)
@@ -132,21 +132,22 @@ void delay (volatile uint32_t time)
     __asm ("nop");
 }
 
-static uint32_t* const WDT_MR = (uint32_t*) 0x400E1A54;
+static uint32_t* const WDT_MR = (uint32_t*) 0x400E1854;     //  Watchdog Timer Mode Register SAM4: 0x400E1854  SAM3: 0x400E1A54
 
 void main()
 {
   // watchdog timer is actived on boot with a default timeout so disable it
   // note: you can only write to WDT_MR once after power on reset
   // Atmel SAM3X8E Datasheet, section 15.4, page 261
-  *WDT_MR |= (1 << 15); // WDDIS (watchdog disable) bit, page 265  
+  // Atmel SAM4E8E Datasheet, section 16.5.2, page 362
+  *WDT_MR |= (1 << 15); // WDDIS (watchdog disable) bit, SAM3 page 265, SAM 4 page 362
   HardwareInit ();
 
   while (1)
   {
-    PIOB->PIO_SODR = 1 << LED_PIN;
-    delay (100000);
-    PIOB->PIO_CODR = 1 << LED_PIN;
-    delay (100000);
+    PIOE->PIO_SODR = 1 << LED_PIN;
+    delay (200000);
+    PIOE->PIO_CODR = 1 << LED_PIN;
+    delay (200000);
   }
 }
