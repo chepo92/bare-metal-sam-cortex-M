@@ -5,12 +5,12 @@
 /*                                                                            */
 /*   Description                                                              */
 /*                                                                            */
-/*   Minimal blink for SAM3X (Arduino Due)                                    */
+/*   Minimal blink for SAM4E (Duet)                                           */
 /* ========================================================================== */
 
 #include <stdint.h>
 
-#define SCB_VTOR_ADDR 0xE000ED08
+#define SCB_VTOR_ADDR 0xE000ED08    // Shared SAM3/4
 
 #define SCB_VTOR *(volatile uint32_t *)SCB_VTOR_ADDR
 

@@ -6,7 +6,7 @@ PROG=C:/users/Axel/AppData/Local/Arduino15/packages/arduino/tools/bossac/bossac-
 
 CC=$(TC)/arm-none-eabi-gcc
 
-CFLAGS=-mcpu=cortex-m3 -mthumb --specs=nosys.specs -nostdlib -g -Os
+CFLAGS=-mcpu=cortex-m4 -mthumb --specs=nosys.specs -nostdlib -g -Os
 
 all : blink.bin
 
@@ -20,7 +20,7 @@ startup.o: startup.c
 
 blink.elf : main.o startup.o flash.ld
 	@echo Linking $@
-	@$(CC) startup.o main.o -o blink.elf -mcpu=cortex-m3 -mthumb --specs=nosys.specs -nostdlib "-Tflash.ld" "-Wl,-Map,blink.map" -nostartfiles
+	@$(CC) startup.o main.o -o blink.elf -mcpu=cortex-m4 -mthumb --specs=nosys.specs -nostdlib "-Tflash.ld" "-Wl,-Map,blink.map" -nostartfiles
 
 blink.bin : blink.elf
 	@echo Creating bin file $@
