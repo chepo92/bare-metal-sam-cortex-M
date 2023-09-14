@@ -1,11 +1,10 @@
-# bare-metal-sam3x
-Bare bones projects for Microchip SAM3X8E (Arduino Due)
+# Bare Metal SAM
+Bare bones blink project for Microchip SAM3X8E (Arduino Due) and SAM4E8E (Duet Printer Controller, SAM4E XPRO and so)
 
-# Projects
 
 ## Requirements
 
-- An Arduino Due
+- An Arduino Due / Duet
 - USB cable
 - installation of Arduino IDE + SAM boards package (or GNU-ARM compiler package)
 
