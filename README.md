@@ -18,9 +18,19 @@ Blinks the onboard LED (D13). Working.
 NB you will need to alter paths to suit your installation in build.bat/makefile
 Also change the COM port for your system.
 
-## Programming
+## Building
+```
+cd blink
+./build.bat
+```
+### Win
 
-You may need to erase the Due manually to get it into SAM-BA bootloader.
+## Uploading
+
+You may need to erase the Due manually (press erase button) to get it boot from SAM-BA bootloader.
 Use the native USB for programming.
+
+D:\Git\tool-bossac-py-reset\bossac\win\bossac.exe  -i -d --port=COM5 -U false -e -w  -b ".\blink.bin" -R
+
 
 __NB__ There is a bug in older versions of bossac, it crashes on small bin files. You must use v1.7.0 or later which can be found at https://github.com/shumatech/BOSSA/releases
