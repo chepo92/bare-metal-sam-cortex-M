@@ -4,14 +4,14 @@ set TC=%USERPROFILE%\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eab
 set CC=%TC%\arm-none-eabi-gcc
 set PROG=%USERPROFILE%\.platformio\packages\tool-bossac
 
-set CFLAGS=-mcpu=cortex-m3 -mthumb --specs=nosys.specs -nostdlib -g -Os
+set CFLAGS=-mcpu=cortex-m4 -mthumb --specs=nosys.specs -nostdlib -g -Os
 
 echo Compiling...
 %cc% -c main.c -o main.o %CFLAGS%
 %cc% -c startup.c -o startup.o %CFLAGS%
 
 echo Linking...
-%cc% startup.o main.o -o blink.elf -mcpu=cortex-m3 -mthumb --specs=nosys.specs -nostdlib "-Tflash.ld" "-Wl,-Map,blink.map" -nostartfiles
+%cc% startup.o main.o -o blink.elf -mcpu=cortex-m4 -mthumb --specs=nosys.specs -nostdlib "-Tflash.ld" "-Wl,-Map,blink.map" -nostartfiles
 
 echo Creating bin file...
 %TC%\arm-none-eabi-objcopy  -O binary  blink.elf blink.bin
@@ -20,7 +20,7 @@ echo Creating bin file...
 
 echo Programming code...
 
-%PROG%\bossac --info --debug --port "COM7" --write --verify --reset --erase -U false --boot "blink.bin"
+%PROG%\bossac --info --debug --port "COM5" --write --verify --reset --erase -U false --boot "blink.bin"
 
 
 if not /%1/ == /PROG/ goto skip1
