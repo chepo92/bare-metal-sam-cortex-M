@@ -1,5 +1,5 @@
 # Bare Metal SAM
-Bare bones blink project for Microchip SAM3X8E (Arduino Due) and SAM4E8E (Duet Printer Controller, SAM4E XPRO and so)
+Bare bones C blink project for Microchip SAM3X8E (Arduino Due) and SAM4E8E (Duet Printer Controller, SAM4E XPRO and so)
 
 Blinks the onboard LED (D13). Working.
 
